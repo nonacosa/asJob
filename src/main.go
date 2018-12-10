@@ -9,87 +9,37 @@ import (
 	"os"
 	"strings"
 	"time"
+	"github.com/pkwenda/asJob/src/structure/lagou"
 )
 
 const PageSize = 15
 
-type Calculater struct {
-	TotalCount int
-	PageSize   int
-	PageNo     int
+type lagouCalculate struct {
+  lagou.Calculate
 }
 
-func (calculater *Calculater) nextPageNo() (int) {
-	if calculater.PageNo >= calculater.maxPageNo() {
+func (calculate *lagouCalculate) NextPageNo() (int) {
+	if calculate.PageNo >= calculate.MaxPageNo() {
 
 	}
-	return calculater.PageNo + 1
+	return calculate.PageNo + 1
 }
 
-func (calculater *Calculater) maxPageNo() (int) {
-	return calculater.TotalCount / calculater.PageSize
+func (calculate *lagouCalculate) MaxPageNo() (int) {
+	return calculate.TotalCount / calculate.PageSize
 }
 
-/**
- 解析 JSON：https://blog.golang.org/json-and-go
- */
-type Result struct {
-	City              string
-	BusinessZones     []string
-	CompanyFullName   string
-	CompanyLabelList  []string
-	CompanyShortName  string
-	CompanySize       string
-	CreateTime        string
-	District          string
-	Education         string
-	FinanceStage      string
-	FirstType         string
-	IndustryField     string
-	IndustryLables    []string
-	JobNature         string
-	Latitude          string
-	Longitude         string
-	PositionAdvantage string
-	PositionId        int32
-	PositionLables    []string
-	PositionName      string
-	Salary            string
-	SecondType        string
-	Stationname       string
-	Subwayline        string
-	Linestaion        string
-	WorkYear          string
+func (calculate *lagouCalculate) setCurrentPageNo(pageNo int) {
+	calculate.PageNo = pageNo
 }
 
-type ListResult struct {
-	Code    int
-	Success bool
-	Msg     string
-	Content Content
-}
-
-type Content struct {
-	PositionResult PositionResult
-	PageNo         int
-	PageSize       int
-}
-
-type PositionResult struct {
-	Result     []Result
-	TotalCount int
-}
-
-type jobService struct {
-	City string
-}
 
 //func NewJobService(city string) *jobService {
 //	return &jobService{City: city}
 //}
 
 func main() {
-	calculate := Calculater{0,PageSize,0}
+	calculate := lagouCalculate{Calculate:lagou.Calculate{TotalCount:0,PageSize:PageSize,PageNo:0}}
 	for i:=0; i<2; i++ {
 
 
@@ -143,9 +93,9 @@ func main() {
 
 			fmt.Printf("%s \n", all)
 
-			var results ListResult
+			var results lagou.ListResult
 			json.Unmarshal([]byte(all), &results)
-			calculate = Calculater{results.Content.PositionResult.TotalCount,PageSize, calculate.nextPageNo()}
+			calculate.setCurrentPageNo(calculate.NextPageNo())
 			for _, v := range results.Content.PositionResult.Result {
 				//fmt.Println(v)
 				debugLog.Println(v)
