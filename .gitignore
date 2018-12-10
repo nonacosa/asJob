@@ -15,3 +15,5 @@ letGoJob.ipr
 letGoJob.iws
 letGoJob.iws
 *.iws
+*.log
+*.iws
