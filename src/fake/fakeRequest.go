@@ -6,7 +6,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"net/url"
 	"strings"
 	"time"
 )
@@ -14,7 +13,6 @@ import (
 func init()  {
 	fmt.Println("thi is init")
 	FackIP()
-	fmt.Print(ips)
 }
 
 var ips = make([]string,200)
@@ -62,9 +60,8 @@ func FackIP() {
 	body2 := fmt.Sprintf("%s",body)
 	body3 := strings.Replace(strings.Split(body2,"0,success")[1],",",":",-1)
 	ips = strings.Split(body3,"<br />")[1:]
-	fmt.Print(ips)
+	//fmt.Print(ips)
 }
-
 
 
 func FackRequest(request *http.Request)(*http.Client) {
@@ -85,14 +82,15 @@ func FackRequest(request *http.Request)(*http.Client) {
 
 	//fmt.Println(fmt.Sprintf("first=false&pn=%d",calculate.PageNo))
 
-	proxy := func(_ *http.Request) (*url.URL, error) {
-		return url.Parse(fmt.Sprintf("http://%s",GetIP()))//根据定义Proxy func(*Request) (*url.URL, error)这里要返回url.URL
-	}
+	//proxy := func(_ *http.Request) (*url.URL, error) {
+	//	return url.Parse(fmt.Sprintf("http://%s",GetIP()))//根据定义Proxy func(*Request) (*url.URL, error)这里要返回url.URL
+	//}
 	//fmt.Println(fmt.Sprintf("當前代理IP: http://%s",GetIP()))
 	// timeout
-	transport := &http.Transport{Proxy: proxy}
+	//transport := &http.Transport{Proxy: proxy}
 
-	return &http.Client{Transport: transport,Timeout:1*time.Second}
+	//return &http.Client{Transport: transport,Timeout:6*time.Second}
+	return &http.Client{Timeout:10*time.Second}
 
 
 }
