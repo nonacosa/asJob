@@ -86,7 +86,7 @@ func Spider() (error) {
 		}
 
 		//req.Header.Set("Proxy-Switch-Ip", "yes")
-		fake.FackRequest(req)
+		//fake.FackRequest(req)
 
 		resp, err := client.Do(req)
 		if err != nil {
