@@ -3,13 +3,14 @@ package download
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/pkwenda/asJob/src/fake"
-	"github.com/pkwenda/asJob/src/structure/lagou"
+	"github.com/pkwenda/asJob/fake"
+	"github.com/pkwenda/asJob/structure/lagou"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+	"sync"
 )
 
 const PageSize = 15
@@ -35,6 +36,8 @@ func (calculate *lagouCalculate) setCurrentPageNo(pageNo int) {
 
 var calculate lagouCalculate
 
+var wg sync.WaitGroup
+
 //func NewJobService(city string) *jobService {
 //	return &jobService{City: city}
 //}
@@ -45,11 +48,19 @@ func init() {
 
 func Worker(chanCount int)   {
 	for i:=0; i<chanCount; i++ {
-		if err := Spider(); err != nil {
-			fmt.Println(err)
-		}
+		wg.Add(1)
+		go func(i int) {
+			defer wg.Done()
+			if err:= Spider(); err != nil {
+				fmt.Print(err)
+			}
+		}(i)
+
 	}
+	wg.Wait()
 }
+
+
 func Spider() (error) {
 
 		//time.Sleep(time.Second * 10)
