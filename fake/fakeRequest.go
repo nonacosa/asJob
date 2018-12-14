@@ -77,8 +77,9 @@ func FackRequest(request *http.Request)(*http.Client) {
 	request.Header.Add("Host", "www.lagou.com")
 	request.Header.Add("Origin", "https://www.lagou.com")
 	request.Header.Add("Referer", "https://www.lagou.com/jobs/list_golang?labelWords=&fromSearch=true&suginput=")
+	//request.Header.Add("User-Agent", GetUserAgent())
 	request.Header.Add("User-Agent", GetUserAgent())
-	request.Header.Add("Cookie", "_ga=GA1.2.161331334.1522592243; ")
+	request.Header.Add("Cookie", "JSESSIONID=ABAAABAAAGGABCB6A0C5F80A6786A202852379B0B7B8F2A; _ga=GA1.2.1039849811.1544434721; user_trace_token=20181210173843-627abacf-fc5f-11e8-8ced-5254005c3644; LGUID=20181210173843-627abe2e-fc5f-11e8-8ced-5254005c3644; X_HTTP_TOKEN=1fb1fd7be3f42a53bda27d710e0c00ac; Hm_lvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1543829061,1544434724,1544435109; index_location_city=%E5%8C%97%E4%BA%AC; sensorsdata2015jssdkcross=%7B%22distinct_id%22%3A%221679781cb1ec8b-02b8ef60a729f4-35677607-1764000-1679781cb1f71d%22%2C%22%24device_id%22%3A%221679781cb1ec8b-02b8ef60a729f4-35677607-1764000-1679781cb1f71d%22%7D; TG-TRACK-CODE=index_navigation; _gid=GA1.2.170535933.1544761188; LGSID=20181214121948-7ea9da5a-ff57-11e8-917e-525400f775ce; PRE_UTM=; PRE_HOST=; PRE_SITE=; PRE_LAND=https%3A%2F%2Fwww.lagou.com%2F; _gat=1; ab_test_random_num=0; sm_auth_id=028voxp4xmig8lhk; _putrc=01B4B2F45814A039123F89F2B170EADC; login=true; unick=%E6%8B%89%E5%8B%BE%E7%94%A8%E6%88%B75584; hasDeliver=0; gate_login_token=6279d7edddcd50a31e13f1fe4cedc566f4d0e8e3034e5755769c3d1149a1f227; LGRID=20181214122510-3e9e4980-ff58-11e8-8cef-5254005c3644; Hm_lpvt_4233e74dff0ae5bd0a3d81c6ccf756e6=1544761511")
 
 	//fmt.Println(fmt.Sprintf("first=false&pn=%d",calculate.PageNo))
 

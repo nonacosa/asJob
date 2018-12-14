@@ -16,7 +16,7 @@ import (
 const PageSize = 15
 
 type lagouCalculate struct {
-	lagou.Calculate
+	*lagou.Calculate
 }
 
 func (calculate *lagouCalculate) NextPageNo() (int) {
@@ -43,7 +43,7 @@ var wg sync.WaitGroup
 //}
 
 func init() {
-	calculate = lagouCalculate{Calculate: lagou.Calculate{TotalCount: 0, PageSize: PageSize, PageNo: 0}}
+	calculate = lagouCalculate{Calculate: &lagou.Calculate{TotalCount: 0, PageSize: PageSize, PageNo: 0}}
 }
 
 func Worker(chanCount int)   {
@@ -86,7 +86,7 @@ func Spider() (error) {
 		}
 
 		//req.Header.Set("Proxy-Switch-Ip", "yes")
-		//fake.FackRequest(req)
+		fake.FackRequest(req)
 
 		resp, err := client.Do(req)
 		if err != nil {
